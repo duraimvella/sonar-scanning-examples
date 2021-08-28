@@ -1,0 +1,123 @@
+Step 1. Sign in to your AWS account
+1. Sign in to your AWS account at https://aws.amazon.com with an IAM user role that has 
+the necessary permissions. For details, see Planning the deployment earlier in this 
+guide.
+2. Make sure that your AWS account is configured correctly, as discussed in the Technical 
+requirements section.
+3. Use the region selector in the navigation bar to choose the AWS Region where you want 
+to deploy AWS Cloud9.
+4. Select the key pair that you created earlier. In the navigation pane of the Amazon EC2 
+console, choose Key Pairs, and then choose your key pair from the list
+
+Step 2. Launch the Quick Start
+1. Choose one of the following options to launch the AWS CloudFormation template into 
+your AWS account. For help choosing an option, see deployment options earlier in this 
+guide
+
+2. Check the region that’s displayed in the upper-right corner of the navigation bar, and 
+change it if necessary. This is where the network infrastructure for AWS Cloud9 will be 
+built. The template is launched in the US West (Oregon) Region by default.
+
+3. On the Select Template page, keep the default setting for the template URL, and then 
+choose Next.
+4. On the Specify Details page, change the stack name if needed. Review the parameters 
+for the template. Provide values for the parameters that require input. For all other 
+parameters, review the default settings and customize them as necessary. 
+In the following tables, parameters are listed by category and described separately for 
+the two deployment options: 
+– Parameters for deploying AWS Cloud9 into a new VPC
+
+OPTION 1: PARAMETERS FOR DEPLOYING AWS CLOUD9 INTO A NEW VPC
+View template
+VPC network configuration:
+Parameter label 
+(name) Default Description
+Availability Zones
+(AvailabilityZones)
+Requires input List of Availability Zones to use for the subnets in the VPC. 
+Only two Availability Zones are used for this deployment, and 
+the logical order of your selections is preserved.
+Number of Availability 
+Zones
+(NumberOfAZs)
+2 The number of Availability Zones to use in the VPC. This must 
+match your selections in the list of Availability Zones 
+parameter.
+Private subnet 1 CIDR
+(PrivateSubnet1CIDR)
+10.0.0.0/19 The CIDR block for private subnet 1 located in Availability 
+Zone 1.
+Private subnet 2 CIDR
+(PrivateSubnet2CIDR)
+10.0.32.0/19 The CIDR block for private subnet 2 located in Availability 
+Zone 2.
+Public subnet 1 CIDR
+(PublicSubnet1CIDR)
+10.0.128.0/20 The CIDR block for public subnet 1 located in Availability Zone 
+1.
+Public subnet 2 CIDR
+(PublicSubnet2CIDR)
+10.0.144.0/19 The CIDR block for public subnet 2 located in Availability 
+Zone 2.
+Bastion configuration:
+Parameter label 
+(name) Default Description
+Bastion entry point
+(EnableBastionStack)
+false (Optional) Choose true to create a Linux bastion host.
+
+In Region, choose the Region where you intend to create your pipeline, such as US West (Oregon), and then choose Create bucket.
+4.	After the bucket is created, a success banner displays. Choose Go to bucket details.
+5.	On the Properties tab, choose Versioning. Choose Enable versioning, and then choose Save.
+When versioning is enabled, Amazon S3 saves every version of every object in the bucket.
+6.	On the Permissions tab, leave the defaults. For more information about S3 bucket and object permissions, see Specifying Permissions in a Policy.
+7.	Next, download a sample and save it into a folder or directory on your local computer.
+a.	Choose one of the following. Choose SampleApp_Windows.zip if you want to follow the steps in this tutorial for Windows Server instances.
+•	If you want to deploy to Amazon Linux instances using CodeDeploy, download the sample application here: SampleApp_Linux.zip.
+•	If you want to deploy to Windows Server instances using CodeDeploy, download the sample application here: SampleApp_Windows.zip.
+b.	Download the compressed (zipped) file. Do not unzip the file.
+8.	In the Amazon S3 console, for your bucket, upload the file:
+a.	Choose Upload.
+b.	Drag and drop the file or choose Add files and browse for the file.
+c.	Choose Upload.
+
+
+
+To create an instance role
+1.	Open the IAM console at https://console.aws.amazon.com/iam/).
+2.	From the console dashboard, choose Roles.
+3.	Choose Create role.
+4.	Under Select type of trusted entity, select AWS service. Under Choose a use case, select EC2, and then choose Next: Permissions.
+5.	Search for and select the policy named AmazonEC2RoleforAWSCodeDeploy, and then choose Next: Tags.
+6.	Choose Next: Review. Enter a name for the role (for example, EC2InstanceRole).
+
+
+To create an application in CodeDeploy
+1.	Open the CodeDeploy console at https://console.aws.amazon.com/codedeploy.
+2.	If the Applications page does not appear, on the AWS CodeDeploy menu, choose Applications.
+3.	Choose Create application.
+4.	In Application name, enter MyDemoApplication.
+5.	In Compute Platform, choose EC2/On-premises.
+6.	Choose Create application.
+
+
+
+To create a CodePipeline automated release process
+1.	Sign in to the AWS Management Console and open the CodePipeline console at http://console.aws.amazon.com/codesuite/codepipeline/home.
+2.	On the Welcome page, Getting started page, or the Pipelines page, choose Create pipeline.
+3.	In Step 1: Choose pipeline settings, in Pipeline name, enter MyFirstPipeline.
+If you choose another name for your pipeline, be sure to use that name instead of MyFirstPipeline for the rest of this tutorial. After you create a pipeline, you cannot change its name. Pipeline names are subject to some limitations. For more information, see Quotas in AWS CodePipeline.
+4.	In Service role, do one of the following:
+•	Choose New service role to allow CodePipeline to create a new service role in IAM. In Role name, the role and policy name both default to this format: AWSCodePipelineServiceRole-region-pipeline_name. For example, this is the service role created for this tutorial: AWSCodePipelineServiceRole-eu-west-2-MyFirstPipeline.
+•	Choose Existing service role to use a service role already created in IAM. In Role name, choose your service role from the list.
+5.	Leave the settings under Advanced settings at their defaults, and then choose Next.
+6.	In Step 2: Add source stage, in Source provider, choose Amazon S3. In Bucket, enter the name of the S3 bucket you created in Step 1: Create an S3 bucket for your application. In S3 object key, enter the object key with or without a file path, and remember to include the file extension. For example, for SampleApp_Windows.zip, enter the sample file name as shown in this example:
+SampleApp_Windows.zip
+Choose Next step.
+
+8b3283f827ff4ca484868b56b36cafbb
+
+https://meet.google.com/gfu-auzs-gef
+
+
+
